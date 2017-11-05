@@ -1,6 +1,5 @@
 //
 //  main.c
-//  myHelloWorld
 //
 //  Created by Matthias Konrath on 09.10.17.
 //  Copyright © 2017 Matthias Konrath. All rights reserved.
