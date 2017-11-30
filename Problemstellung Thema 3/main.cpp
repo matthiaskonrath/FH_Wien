@@ -26,8 +26,21 @@
 
 
 
+/*
+ *	Function to get all the notes from the user
+ */
 void get_notes(int* notenliste, const int notes);
+
+
+/*
+ *	Function to get all 5's from the notelist
+ */
 int get_all_fives(int* notenliste, const int notes);
+
+
+/*
+ *	Get the mean of the notes
+ */
 float get_mean(int* notenliste, const int notes);
 
 
@@ -56,7 +69,7 @@ int main(int argc, char **argv)
 	 */
 	srand(time(NULL));		/* Initialisierung */
 	rand();  				/* Die erste Zufallszahl ist meist ungeeignet */
-    int zufallszahl = 1+ (int)(100.0 * rand() / (RAND_MAX + 1.0));
+	int zufallszahl = 1+ (int)(100.0 * rand() / (RAND_MAX + 1.0));
 
 	int guess = 0;
 	for (size_t i = 0; i < 10; i++) {
@@ -68,17 +81,20 @@ int main(int argc, char **argv)
 			break;
 		} else {
 			if (guess < zufallszahl) {
-				printf("%s(*) You guessed too low!\n", KRED);
+				printf("%s<!> You guessed too low!\n", KRED);
 			} else {
-				printf("%s(*) You guessed too high!\n", KRED);
+				printf("%s<!> You guessed too high!\n", KRED);
 			}
 		}
 	}
 
+	// Reset the colors of the terminal
+	printf("%s", KNRM);
+
 	/*
 	 * Terminate the programm successfully
 	 */
-    return 0;
+	return 0;
 }
 
 void get_notes(int* notenliste, const int notes) {
@@ -86,8 +102,9 @@ void get_notes(int* notenliste, const int notes) {
 
 	for (size_t i = 0; i < notes; i++) {
 		printf("%s(*) Enter note: ", KGRN);
-		if (scanf("%d", &tmp_note) != 1 || (tmp_note < 1 && tmp_note > 5)) {
-			exit(1);
+		if (scanf("%d", &tmp_note) != 1 || tmp_note < 1 || tmp_note > 5) {
+			printf("%s<!> Note is invalid, try agin!\n", KRED);
+			i--;
 		} else {
 			*(notenliste +i) = tmp_note;
 		}
