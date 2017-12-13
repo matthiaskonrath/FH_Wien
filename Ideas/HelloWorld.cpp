@@ -20,11 +20,20 @@ int main ()
     char* mem = (char*) malloc(size_of_string);
     char* test_ptr = func();
 
+    // OPTION A (for the normal guys)
     // Store the value first --> printf will overwrite it !!!
-    for (size_t i = 0; i < size_of_string; i++) {
-        *(mem + i) = *(test_ptr + i);
-    }
-    printf("String: %s\n", mem);
+    // for (size_t i = 0; i < size_of_string; i++) {
+    //     *(mem + i) = *(test_ptr + i);
+    // }
+    // printf("String: %s", mem);
+
+
+    // OPTION B (just for real hackers !!!)
+    // Manipulate the registers
+    __asm__ ("subq $100, %rsp");
+    printf("String: %s", test_ptr);
+    __asm__ ("addq $100, %rsp");
+
 
 
 
