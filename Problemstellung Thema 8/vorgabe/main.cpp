@@ -11,7 +11,7 @@ int main (int argc, const char **argv)
 
 	data = readBitmap(argv[1], &bmpHeader, &bmpInfo);
 
-	mirrorData = invert(&bmpInfo, data);
+	mirrorData = mirror(&bmpInfo, data);
 	writeBitmap(argv[2], &bmpHeader, &bmpInfo, mirrorData);
 
 	free(data);

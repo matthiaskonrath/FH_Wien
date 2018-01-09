@@ -6,6 +6,10 @@
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /* Struktur des Headers einer BMP Datei */
 struct header {
 	char bfType[2];

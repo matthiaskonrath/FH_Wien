@@ -4,9 +4,7 @@
  */
 
 #include "image.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 
 struct pixel* readBitmap(const char *filename, struct header* pHeader, struct info* pInfo)
 {
@@ -16,7 +14,7 @@ struct pixel* readBitmap(const char *filename, struct header* pHeader, struct in
 	fp = fopen(filename, "rb");
 	if (fp == NULL) {
 		printf("Datei %s kann nicht geoeffnet werden!\n", filename);
-		return NULL;
+		exit(-1);
 	}
 
 	/* fread dient zum Einlesen von Binärdateien. fread-Parameter:
@@ -34,7 +32,7 @@ struct pixel* readBitmap(const char *filename, struct header* pHeader, struct in
 	fread(pInfo, sizeof(struct info), 1, fp);
 
 	int image_size = (3 * pInfo->biWidth * pInfo->biHeight);
-	pData = (pixel*) malloc(image_size);
+	pData = (struct pixel*) malloc(image_size);
 	fread(pData, sizeof(char), image_size, fp); //
 
 	fclose(fp);
@@ -49,7 +47,7 @@ void writeBitmap(const char *filename, struct header* pHeader, struct info* pInf
 	fp = fopen(filename, "wb");
 	if (fp == NULL) {
 		printf("Datei %s kann nicht geoeffnet werden!\n", filename);
-		return;
+		exit(-1);
 	}
 
 	fwrite(&pHeader->bfType, sizeof(char), 2, fp);
@@ -72,7 +70,7 @@ struct pixel* mirror(struct info* pInfo, struct pixel* pData)
 	 */
 
 	int image_size = (3 * pInfo->biWidth * pInfo->biHeight);
- 	pixel* new_pData = (pixel*) malloc(image_size);
+ 	struct pixel* new_pData = (struct pixel*) malloc(image_size);
 
  	image_size = (pInfo->biWidth * pInfo->biHeight);
  	for (size_t i = 0; i < image_size; i++) {
@@ -88,16 +86,7 @@ struct pixel* invert(struct info* pInfo, struct pixel* pData)
 	 * TODO IMPLEMENTIEREN SIE AN DIESER STELLE DAS HORIZONTALE UND VERTIKALE SPIEGELN
 	 * ERSETZEN SIE "RETURN NULL" DURCH EIN SINNVOLLES RETURN STATEMENT
 	 */
-
-	int image_size = (3 * pInfo->biWidth * pInfo->biHeight);
-	pixel* new_pData = (pixel*) malloc(image_size);
-
-	image_size = (pInfo->biWidth * pInfo->biHeight);
-	for (size_t i = 0; i < image_size; i++) {
-		*(new_pData + image_size - i) = *(pData + i);
-	}
-
-	return new_pData;
+	return NULL;
 }
 
 struct pixel* saturation(struct info* pInfo, struct pixel* pData, double wRed, double wGreen, double wBlue)
